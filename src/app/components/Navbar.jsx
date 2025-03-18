@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  
   return (
    <>
    <Link href="/">Home</Link>
