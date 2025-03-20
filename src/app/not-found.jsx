@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section>
  
-        <div>No encontrado</div>
+        <div>Pagina no encontrada</div>
         <Link href="/">Home</Link>
     </section>
   )

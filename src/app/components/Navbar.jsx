@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useState } from 'react'
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   
@@ -12,4 +13,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default Navbar;
