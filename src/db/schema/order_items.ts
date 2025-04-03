@@ -3,11 +3,12 @@ import { orders } from "./orders";
 import { menu_items } from "./menu_items";
 
 /* 
-    id
-    order_id
-    menu_item_id
-    quantity
-    price
+
+    id: identificador único del item del pedido
+    order_id: pedido al que pertenece este item
+    menu_item_id: elemento del menú que se agrega al pedido
+    quantity: cantidad del item
+    price: precio del item
 
  */
 

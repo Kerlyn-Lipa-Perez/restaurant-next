@@ -1,12 +1,12 @@
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core"
 import { sql } from 'drizzle-orm';
 /* 
-    id
-    first_name
-    last_name
-    email
-    phone_number
-    created_at
+    id: identificador único del cliente
+    first_name: nombre del cliente
+    last_name: apellido del cliente
+    email: correo electrónico del cliente
+    phone_number: número de teléfono del cliente
+    created_at: fecha de creación del cliente
 
 
  */

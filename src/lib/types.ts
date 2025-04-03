@@ -1,6 +1,5 @@
 import {z} from "zod";
 import { createInsertSchema } from "drizzle-zod";
-
 import {customers, menu_items, order_items,orders, reservations,restaurant} from "../db/schema/index.ts";
 
 // Zod schemas from database tables
@@ -17,10 +16,10 @@ import {customers, menu_items, order_items,orders, reservations,restaurant} from
  */
 
 export const CustomerSchema = createInsertSchema(customers,{
-    first_name: z.string(),
-    last_name: z.string(),
-    email: z.string().email(),
-    phone_number: z.string(),
+    first_name: z.string().min(2).max(50),
+    last_name: z.string().min(2).max(50),
+    email: z.string().email().max(100),
+    phone_number: z.string().regex(/^\+?[1-9]\d{1,14}$/).min(9).max(9),
 }).omit({created_at: true , id: true});
 
 /* 
@@ -32,10 +31,10 @@ export const CustomerSchema = createInsertSchema(customers,{
  */
 
 export const MenuItemsSchema = createInsertSchema(menu_items,{
-    name: z.string(),
-    price: z.number().int(),
-    description: z.string(),
-    category: z.string(),
+    name: z.string().min(2).max(100),
+    price: z.number().positive().max(1000),
+    description: z.string().max(500).optional(),
+    category: z.string().min(3).max(50),
 }).omit({id: true});
 
 /* 
@@ -50,8 +49,8 @@ export const MenuItemsSchema = createInsertSchema(menu_items,{
 export const OrderItemsSchema = createInsertSchema(order_items,{
     order_id: z.string().uuid(),
     menu_item_id: z.string().uuid(),
-    quantity: z.number().int(),
-    price: z.number().int(),
+    quantity: z.number().int().min(1).max(100),
+    price: z.number().positive().max(1000),
 }).omit({id: true});
 
 /* 
@@ -66,9 +65,9 @@ export const OrderItemsSchema = createInsertSchema(order_items,{
 
 export const OrdersSchema = createInsertSchema(orders,{
     customer_id: z.string().uuid(),
-    reservation_id: z.string().uuid(),
-    total_amount: z.number().int(),
-    status: z.string(),
+    reservation_id: z.string().uuid().nullable(),
+    total_amount: z.number().positive().max(1000000),
+    status: z.enum(["pending", "confirmed", "cancelled", "completed"]),
 }).omit({created_at: true , id: true});
 
 /* 
@@ -85,10 +84,10 @@ export const OrdersSchema = createInsertSchema(orders,{
 
 export const ReservationsSchema = createInsertSchema(reservations,{
     customer_id: z.string().uuid(),
-    reservation_date: z.number().int(),
-    number_of_people: z.number().int(),
-    special_requests: z.string(),
-    status: z.string(),
+    reservation_date: z.coerce.date().min(new Date()),
+    number_of_people: z.number().int().min(1).max(50),
+    special_requests: z.string().max(500).optional(),
+    status: z.enum(["pending", "confirmed", "cancelled"]),
 }).omit({created_at: true , id: true});
 
 
@@ -104,8 +103,8 @@ export const ReservationsSchema = createInsertSchema(reservations,{
 
 export const RestaurantSchema = createInsertSchema(restaurant,{
     id: z.string().uuid(),
-    name: z.string(),
-    address: z.string(),
-    phone_number: z.string(),
-    email: z.string().email(),
+    name: z.string().min(2).max(100),
+    address: z.string().min(5).max(255),
+    phone_number: z.string().regex(/^\+?[1-9]\d{1,14}$/).min(9).max(9),
+    email: z.string().email().max(100),
 });

@@ -1,22 +1,18 @@
-import { Geist, Geist_Mono , JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const JetBrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
   preload: true,
   variable: "--font-jetbrains-mono",
   
@@ -44,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body
-        className={`${JetBrainsMono.className} antialiased`}
+        className={`${JetBrainsMono.variable} antialiased`}
       >
         <Navbar />
         {children}
